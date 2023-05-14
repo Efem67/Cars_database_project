@@ -1,0 +1,129 @@
+<h1 class="naglowek">02: zapis / odczyt danych w bazie NEDB</h1>
+
+<div class="wrapper">
+
+    <div class="one">
+        <h2>Dane pojazdu</h2>
+        <form method="GET" action="/saveInfo">
+            <table style="width:100%">
+
+                <tr>
+                    <td><label for="Ubezpieczony" style="color: blue;">Ubezpieczony</label></td>
+                    <td><input type="checkBox" name="Ubezpieczony"></td>
+                </tr>
+                <tr>
+                    <td><label for="Benzyna" style="color: blue;">Benzyna</label></td>
+                    <td><input type="checkBox" name="Benzyna"></td>
+                </tr>
+                <tr>
+                    <td><label for="Uszkodzony" style="color: blue;">Uszkodzony</label></td>
+                    <td><input type="checkBox" name="Uszkodzony"></td>
+                </tr>
+                <tr>
+                    <td><label for="Naped_4x4" style="color: blue;">Napęd 4x4</label></td>
+                    <td><input type="checkBox" name="Naped_4x4"></td>
+                </tr>
+            </table>
+
+                <button class="btn" type="submit">Zapisz auto</button>
+        </form>
+    </div>
+
+    <div class="two">
+        <h2>Wszystkie pojazdy</h2>
+
+        
+            <table id="showCarsTable">
+                    <tr>
+                        <td></td>
+                        <td><h4 style="color: blue;">Ubezpieczony</h4></td>
+                        <td><h4 style="color: blue;">Benzyna</h4></td>
+                        <td><h4 style="color: blue;">Uszkodzony</h4></td>
+                        <td><h4 style="color: blue;">Napęd 4x4</h4></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+            {{#each cars}}
+                <tr>
+                    {{#if this.isEd}}
+                    <form method="GET">
+                        <td>{{@index}}</td>
+                        <td>
+                            <select name="ubezpieczony">
+                                <option value="tak">TAK</option>
+                                <option value="nie">NIE</option>
+                                <option value="brak danych">BRAK DANYCH</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="benzyna">
+                                <option value="tak">TAK</option>
+                                <option value="nie">NIE</option>
+                                <option value="brak danych">BRAK DANYCH</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="uszkodzony">
+                                <option value="tak">TAK</option>
+                                <option value="nie">NIE</option>
+                                <option value="brak danych">BRAK DANYCH</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="a4x4">
+                                <option value="tak">TAK</option>
+                                <option value="nie">NIE</option>
+                                <option value="brak danych">BRAK DANYCH</option>
+                            </select>
+                        </td>
+
+                        
+                        <td>
+                            
+                                <input type="text" style="display: none;" name="aktual" value="{{@index}}">
+                                <input formaction="/aktual" class="del" type="submit" id="btnAktual" value="aktualizuj"/>
+                            
+                        </td>
+
+                        <td>
+                            
+                                <input type="text" style="display: none;" name="anul" value="{{@index}}">
+                                <input formaction="/anul" id="btnEdit" type="submit" value="anuluj"/>
+                            
+                        </td>
+                    </form>
+
+                    {{else}}
+                        <td>{{@index}}</td>
+                        <td>{{Ubezpieczony}}</td>
+                        <td>{{Benzyna}}</td>
+                        <td>{{Uszkodzony}}</td>
+                        <td>{{Naped}}</td>
+
+                        <td>
+                            <form method="GET" action="/delete" onsubmit="return confirm('Chcesz usunąć?');">
+                                <input type="text" style="display: none;" name="delete" value="{{@index}}">
+                                <input class="del" type="submit" id="btnDel" value="usuń"/>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form method="GET" action="/edit">
+                                <input type="text" style="display: none;" name="edit" value="{{@index}}">
+                                <input id="btnEdit" type="submit" value="edytuj"/>
+                            </form>
+                        </td>
+                    {{/if}}
+                    
+                </tr>
+            {{/each}}
+            </table>
+        
+        
+
+    </div>
+
+
+</div>
+
+
